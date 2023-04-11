@@ -20,7 +20,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'content' => fake()->text(),
+            'content' => fake()->text(4000),
             'image' => fake()->imageUrl(640, 480, 'animals', true),
             'user_id' => User::get('id')->random(),
             'category_id' => Category::get('id')->random(),

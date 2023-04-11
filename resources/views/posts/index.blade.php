@@ -28,12 +28,12 @@
                     <tr>
                         <th scope="row">{{ $post->id }}</th>
                         <td>{{ $post->title }}</td>
-                        <td>{{ substr($post->content, 20) . '...' }}</td>
+                        <td>{{ substr($post->content, 1, 80) . '...' }}</td>
                         <td>{{ $post->category->name }}</td>
                         <td>
-                            <button class="btn btn-outline-info">Show</button>
-                            <button class="btn btn-outline-warning">Edit</button>
-                            <button class="btn btn-outline-danger">Delete</button>
+                            <a href="{{ url('/posts/'.$post->id) }}" class="btn btn-outline-info">Show</a>
+                            <a class="btn btn-outline-warning">Edit</a>
+                            <a class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach
