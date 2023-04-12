@@ -43,6 +43,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
+        $request->validate([
+            'title' => 'required|min:5',
+            'content' => 'required|min:10',
+            'user_id' => 'required|exists:users,id',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
