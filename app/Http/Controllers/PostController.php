@@ -44,12 +44,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $request->validate([
-            'title' => 'required|min:5',
-            'content' => 'required|min:10',
-            'user_id' => 'required|exists:users,id',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        // using function validation
+        $request->validate($this->validationRules());
 
         $post = new Post();
         $post->title = $request->title;
@@ -104,5 +100,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validationRules() {
+        return [
+            'title' => 'required|min:5',
+            'content' => 'required|min:10',
+            'user_id' => 'required|exists:users,id',
+            'category_id' => 'required|exists:categories,id',
+        ];
     }
 }
