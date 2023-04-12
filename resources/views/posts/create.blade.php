@@ -15,7 +15,7 @@
         </div>
         <div class="mb-3">
             <label for="user" class="form-label">Author</label>
-            <select class="form-select" id="user" name="user" aria-label="Default select example">
+            <select class="form-select" id="user" name="user_id" aria-label="Default select example">
                 <option selected>Select the author</option>
                 @foreach ($authors as $author)
                     <option value="{{ $author->id }}">{{ $author->name }}</option>    
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <select class="form-select" id="category" name="category" aria-label="Default select example">
+            <select class="form-select" id="category" name="category_id" aria-label="Default select example">
                 <option selected>Select a category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>    
