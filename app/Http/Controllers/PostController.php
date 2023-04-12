@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,13 +48,22 @@ class PostController extends Controller
         // using function validation
         $request->validate($this->validationRules());
 
+        // Récupérer le nom de l'image uploadée
+        // puis la transférer dans le dossier storage/app/posts        
+        $image = Storage::disk('public')->put('posts', $request->file('image'));
+        // or
+        // $image = Storage::put('posts', $request->file('image'));
+        
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->image = $image;
         $post->user_id = $request->user_id;
         $post->category_id = $request->category_id;
 
-        $post->save();
+        $post->save() ;
+
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -108,6 +118,7 @@ class PostController extends Controller
             'content' => 'required|min:10',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

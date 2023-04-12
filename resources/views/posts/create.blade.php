@@ -30,7 +30,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label @error('category_id') is-invalid @enderror"">Image</label>
+            <label for="image" class="form-label @error('category_id') is-invalid @enderror">Image</label>
             <input class="form-control" type="file" name="image" id="image">
             @error('image')
                 <small class="text-danger">{{ $message }}</small>
