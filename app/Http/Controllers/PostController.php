@@ -131,7 +131,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return $id;
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 
     private function validationRules() {
