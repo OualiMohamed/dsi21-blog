@@ -86,7 +86,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Récupérer le post à partir de son id
+        $post = Post::findOrFail($id);
+        // Récupérer la liste des utilisateurs
+        $authors = User::all(); 
+        // Récupérer la liste des catégories
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'authors', 'categories'));
     }
 
     /**
@@ -98,7 +105,22 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->validationRules());
+
+        $post = Post::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $image = Storage::disk('public')->put('posts', $request->file('image'));
+            $post->image = $image;
+        }
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = $request->user_id;
+        $post->category_id = $request->category_id;
+
+        $post->save() ;
+
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully');
     }
 
     /**
