@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
+            TagSeeder::class,
             PostSeeder::class,
             CommentSeeder::class,
         ]);
 
+        
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
