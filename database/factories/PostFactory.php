@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Tag;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -25,5 +27,13 @@ class PostFactory extends Factory
             'user_id' => User::get('id')->random(),
             'category_id' => Category::get('id')->random(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Post $post) {
+            $tags = Tag::inRandomOrder()->limit(3)->get(); // generate 3 random tags
+            $post->tags()->sync($tags); // create pivot records
+        });
     }
 }
